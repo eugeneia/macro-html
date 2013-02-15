@@ -1,0 +1,75 @@
+< Abstract
+ 
+ {HTML} is a HTML generation library. It aims to be fast, modular,
+ cachable and concise. It does so by defining each tag as a macro which
+ expands to code printing the respective HTML source. It also employs a
+ DSL for element attributes.
+
+ {HTML.WIDGETS} is a collection of widget functions. Those functions
+ utilize {HTML} to print compound HTML elements such as lists, forms or
+ even complete documents.
+
+>
+
+< Usage
+
+ {HTML} exports a function {HTML-DOCTYPE} which prints the HTML
+ {!DOCTYPE} tag to {*STANDARD-OUTPUT*}. It also exports a macro for every
+ valid HTML tag as of *HTML5*. Single  tags such as {<br>} take a plist
+ of attributes as arguments, e.g. {(br :class "foo" ...)}. Regular tags
+ such as {<p>} take an attribute list and an arbitrary number of children
+ as arguments, e.g. {(p '(:attributes :class "bar" ...) "foo" ...)}.
+
+ In order to ease specifying attributes for regular tags the readtable
+ {HTML:SYNTAX} provides a specialized reader syntax, e.g.
+ {(p \[:class "bar" ...\] "foo" ...)}.
+
+ Every child expression gets evaluated exactly once, if it returns a
+ string the string will be printed inside the tag, otherwise its return
+ value will be ignored. Tag macros can be nested to produce compound HTML
+ output.
+
+ #code Example usage of {HTML}.#
+
+ (p [:class "foo" :id "bar"]
+    "Hello, " (b "World") "!"
+    (br :class "baz")
+    (symbol-name 'list))
+
+ ;; This will print:
+ ;; <P CLASS="foo" ID="bar">Hello, <B>World</B>
+ ;; <BR CLASS="baz">LIST</P>
+ #
+
+ < List of defined regular tag macros
+
+  {A}, {ABBR}, {ADDRESS}, {ARTICLE}, {ASIDE}, {AUDIO}, {B}, {BDI}, {BDO},
+  {BLOCKQUOTE}, {BODY}, {BUTTON}, {CANVAS}, {CAPTION}, {CITE}, {CODE},
+  {COLGROUP}, {DATALIST}, {DD}, {DEL}, {DETAILS}, {DFN}, {DIV}, {DL},
+  {DT}, {EM}, {EMBED}, {FIELDSET}, {FIGCAPTION}, {FIGURE}, {FOOTER},
+  {FORM}, {H1}, {H2}, {H3}, {H4}, {H5}, {H6}, {HEAD}, {HGROUP}, {HEADER},
+  {HTML}, {I}, {IFRAME}, {INS}, {KEYGEN}, {KBD}, {LABEL}, {LEGEND}, {LI},
+  {MAP}, {MARK}, {MENU}, {METER}, {NAV}, {NOSCRIPT}, {OBJECT}, {OL},
+  {OPTGROUP}, {OPTION}, {OUTPUT}, {P}, {PRE}, {PROGRESS}, {Q}, {RP},
+  {RT}, {RUBY}, {S}, {SAMP}, {SCRIPT}, {SECTION}, {SELECT}, {SMALL},
+  {SPAN}, {STRONG}, {STYLE}, {SUB}, {SUP}, {TABLE}, {TBODY}, {TD},
+  {TEXTAREA}, {TFOOT}, {TH}, {THEAD}, {TIME}, {TITLE}, {TR}, {U}, {UL},
+  {VAR}, {VIDEO}, {WBR}
+
+ >
+
+ < List of defined single tag macros
+
+  {AREA}, {BASE}, {BR}, {COL}, {COMMAND}, {HR}, {IMG}, {INPUT}, {LINK},
+  {META}, {OPTION}, {PARAM}, {SOURCE}, {TRACK}
+
+ >
+
+>
+
+< Dependencies
+
+ {HTML} depends on {NAMED-READTABLES} and shadows {MAP} and {TIME} as
+ those symbols collide with HTML tag names.
+
+>
