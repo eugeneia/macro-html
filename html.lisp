@@ -108,8 +108,7 @@
 (defmacro print-children (children)
   `(progn
      ,@(loop for child in children collect
-	    `(let ((value ,child))
-	       (write-string (escape-element (to-string value)))))))
+            `(write-string (escape-element (to-string ,child))))))
 
 (defmacro define-element (name)
   "Define an element macro."
