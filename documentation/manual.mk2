@@ -1,19 +1,19 @@
 < Abstract
  
- {HTML} is a HTML generation library. It aims to be fast, modular,
+ {MACRO-HTML} is a DSL for generating HTML. It aims to be fast, modular,
  cachable and concise. It does so by defining each tag as a macro which
  expands to code printing the respective HTML source. It also employs a
- DSL for element attributes.
+ readtable syntax for element attributes.
 
- {HTML.WIDGETS} is a collection of widget functions. Those functions
- utilize {HTML} to print compound HTML elements such as lists, forms or
- even complete documents.
+ {MACRO-HTML.WIDGETS} is a collection of widget functions. Those
+ functions utilize {MACRO-HTML} to print compound HTML elements such as
+ lists, forms or even complete documents.
 
 >
 
 < Usage
 
- {HTML} exports a function {HTML-DOCTYPE} which prints the HTML
+ {MACRO-HTML} exports a function {HTML-DOCTYPE} which prints the HTML
  {!DOCTYPE} tag to {*STANDARD-OUTPUT*}. It also exports a macro for every
  valid HTML tag as of *HTML5*. Single  tags such as {<br>} take a plist
  of attributes as arguments, e.g. {(br :class "foo" ...)}. Regular tags
@@ -21,15 +21,15 @@
  as arguments, e.g. {(p '(:attributes :class "bar" ...) "foo" ...)}.
 
  In order to ease specifying attributes for regular tags the readtable
- {HTML:SYNTAX} provides a specialized reader syntax, e.g.
+ {MACRO-HTML:SYNTAX} provides a specialized reader syntax, e.g.
  {(p \[:class "bar" ...\] "foo" ...)}.
 
  Every child expression gets evaluated exactly once, if it returns a
- string the string will be printed inside the tag, otherwise its return
- value will be ignored. Tag macros can be nested to produce compound HTML
- output.
+ string or pathname it will be printed escaped inside the tag, otherwise
+ its return value will be ignored. Tag macros can be nested to produce
+ compound HTML output.
 
- #code Example usage of {HTML}.#
+ #code Example usage of {MACRO-HTML}.#
 
  (p [:class "foo" :id "bar"]
     "Hello, " (b "World") "!"
@@ -69,7 +69,7 @@
 
 < Dependencies
 
- {HTML} depends on {NAMED-READTABLES} and shadows {MAP} and {TIME} as
- those symbols collide with HTML tag names.
+ {MACRO-HTML} depends on {NAMED-READTABLES} and shadows {MAP} and {TIME}
+ as those symbols collide with HTML tag names.
 
 >

@@ -1,6 +1,6 @@
 ;;;; Produce HTML output in a fast, cachable, modular and easy way.
 
-(in-package :html)
+(in-package :macro-html)
 
 (defparameter *html-doctype* "<!DOCTYPE html>"
   "Default DOCTYPE.")
@@ -67,8 +67,7 @@
   (typecase object
     (string object)
     (pathname #-(or ccl) (namestring object)
-	      #+ccl (ccl:native-translated-namestring object))
-    (t nil)))
+	      #+ccl (ccl:native-translated-namestring object))))
 
 (defmacro element-attributes (attributes)
   "Generate code to print element ATTRIBUTES."

@@ -1,23 +1,7 @@
 ;;;; Various widget functions for common HTML template pieces.
 
-(defpackage html.widgets
-  (:use :cl
-	:named-readtables
-        :html)
-  (:export :html-widget-head
-	   :html-widget-meta
-	   :html-widget-document
-	   :html-widget-list
-	   :html-widget-input
-	   :html-widget-select
-	   :html-widget-textarea
-	   :html-widget-form
-	   :html-widget-table)
-  (:shadow :map
-           :time))
-
-(in-package :html.widgets)
-(in-readtable html:syntax)
+(in-package :macro-html.widgets)
+(in-readtable macro-html:syntax)
 
 (defparameter *default-encoding* :utf-8
   "Default document encoding.")

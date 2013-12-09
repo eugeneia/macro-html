@@ -1,6 +1,6 @@
 ;;;; Define named readtable for attribute syntax.
 
-(in-package :html)
+(in-package :macro-html)
 
 (defreadtable syntax
   (:merge :standard)
