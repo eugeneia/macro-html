@@ -7,7 +7,8 @@
   (:shadow :map
            :time)
   (:export :html-doctype
-	   :syntax))
+	   :syntax
+           :text))
 
 (defpackage macro-html.widgets
   (:documentation "Predefined HTML widgets part of MACRO-HTML.")

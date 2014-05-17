@@ -109,6 +109,11 @@
      ,@(loop for child in children collect
             `(write-string (escape-element (to-string ,child))))))
 
+(defmacro text (&body text-nodes)
+  "Print TEXT-NODES as if they were arguments to a tag macro."
+  `(progn (print-children ,text-nodes)
+          (values)))
+
 (defmacro define-element (name)
   "Define an element macro."
   `(defmacro ,name (&rest arguments)
