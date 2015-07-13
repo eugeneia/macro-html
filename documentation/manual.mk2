@@ -1,27 +1,27 @@
 < Abstract
  
- {MACRO-HTML} is a DSL for generating HTML. It aims to be fast, modular,
+ {macro-html} is a DSL for generating HTML. It aims to be fast, modular,
  cachable and concise. It does so by defining each tag as a macro which
  expands to code printing the respective HTML source. It also employs a
  readtable syntax for element attributes.
 
- {MACRO-HTML.WIDGETS} is a collection of widget functions. Those
- functions utilize {MACRO-HTML} to print compound HTML elements such as
+ {macro-html.widgets} is a collection of widget functions. Those
+ functions utilize {macro-html} to print compound HTML elements such as
  lists, forms or even complete documents.
 
 >
 
 < Usage
 
- {MACRO-HTML} exports a function {HTML-DOCTYPE} which prints the HTML
- {!DOCTYPE} tag to {*STANDARD-OUTPUT*}. It also exports a macro for every
+ {macro-html} exports a function {html-doctype} which prints the HTML
+ {!DOCTYPE} tag to {*standard-output*}. It also exports a macro for every
  valid HTML tag as of *HTML5*. Single  tags such as {<br>} take a plist
  of attributes as arguments, e.g. {(br :class "foo" ...)}. Regular tags
  such as {<p>} take an attribute list and an arbitrary number of children
  as arguments, e.g. {(p '(:attributes :class "bar" ...) "foo" ...)}.
 
  In order to ease specifying attributes for regular tags the readtable
- {MACRO-HTML:SYNTAX} provides a specialized reader syntax, e.g.
+ {macro-html:syntax} provides a specialized reader syntax, e.g.
  {(p \[:class "bar" ...\] "foo" ...)}.
 
  Every child expression gets evaluated exactly once, if it returns a
@@ -29,7 +29,7 @@
  its return value will be ignored. Tag macros can be nested to produce
  compound HTML output.
 
- #code Example usage of {MACRO-HTML}.#
+ #code Example usage of {macro-html}.#
 
  (p [:class "foo" :id "bar"]
     "Hello, " (b "World") "!"
@@ -43,25 +43,25 @@
 
  < List of defined regular tag macros
 
-  {A}, {ABBR}, {ADDRESS}, {ARTICLE}, {ASIDE}, {AUDIO}, {B}, {BDI}, {BDO},
-  {BLOCKQUOTE}, {BODY}, {BUTTON}, {CANVAS}, {CAPTION}, {CITE}, {CODE},
-  {COLGROUP}, {DATALIST}, {DD}, {DEL}, {DETAILS}, {DFN}, {DIV}, {DL},
-  {DT}, {EM}, {EMBED}, {FIELDSET}, {FIGCAPTION}, {FIGURE}, {FOOTER},
-  {FORM}, {H1}, {H2}, {H3}, {H4}, {H5}, {H6}, {HEAD}, {HGROUP}, {HEADER},
-  {HTML}, {I}, {IFRAME}, {INS}, {KEYGEN}, {KBD}, {LABEL}, {LEGEND}, {LI},
-  {MAP}, {MARK}, {MENU}, {METER}, {NAV}, {NOSCRIPT}, {OBJECT}, {OL},
-  {OPTGROUP}, {OPTION}, {OUTPUT}, {P}, {PRE}, {PROGRESS}, {Q}, {RP},
-  {RT}, {RUBY}, {S}, {SAMP}, {SCRIPT}, {SECTION}, {SELECT}, {SMALL},
-  {SPAN}, {STRONG}, {STYLE}, {SUB}, {SUP}, {TABLE}, {TBODY}, {TD},
-  {TEXTAREA}, {TFOOT}, {TH}, {THEAD}, {TIME}, {TITLE}, {TR}, {U}, {UL},
-  {VAR}, {VIDEO}, {WBR}
+  {a}, {abbr}, {address}, {article}, {aside}, {audio}, {b}, {bdi}, {bdo},
+  {blockquote}, {body}, {button}, {canvas}, {caption}, {cite}, {code},
+  {colgroup}, {datalist}, {dd}, {del}, {details}, {dfn}, {div}, {dl},
+  {dt}, {em}, {embed}, {fieldset}, {figcaption}, {figure}, {footer},
+  {form}, {h1}, {h2}, {h3}, {h4}, {h5}, {h6}, {head}, {hgroup}, {header},
+  {html}, {i}, {iframe}, {ins}, {keygen}, {kbd}, {label}, {legend}, {li},
+  {map}, {mark}, {menu}, {meter}, {nav}, {noscript}, {object}, {ol},
+  {optgroup}, {option}, {output}, {p}, {pre}, {progress}, {q}, {rp},
+  {rt}, {ruby}, {s}, {samp}, {script}, {section}, {select}, {small},
+  {span}, {strong}, {style}, {sub}, {sup}, {table}, {tbody}, {td},
+  {textarea}, {tfoot}, {th}, {thead}, {time}, {title}, {tr}, {u}, {ul},
+  {var}, {video}, {wbr}
 
  >
 
  < List of defined single tag macros
 
-  {AREA}, {BASE}, {BR}, {COL}, {COMMAND}, {HR}, {IMG}, {INPUT}, {LINK},
-  {META}, {OPTION}, {PARAM}, {SOURCE}, {TRACK}
+  {area}, {base}, {br}, {col}, {command}, {hr}, {img}, {input}, {link},
+  {meta}, {option}, {param}, {source}, {track}
 
  >
 
@@ -69,7 +69,7 @@
 
 < Dependencies
 
- {MACRO-HTML} depends on {NAMED-READTABLES} and shadows {MAP} and {TIME}
+ {macro-html} depends on {named-readtables} and shadows {map} and {time}
  as those symbols collide with HTML tag names.
 
 >
