@@ -7,10 +7,12 @@
   (:shadow :map
            :time)
   (:export :html-doctype
-	   :syntax))
+	   :syntax
+           :text))
 
 (defpackage macro-html.widgets
-  (:documentation "Predefined HTML widgets part of MACRO-HTML.")
+  (:documentation
+   "HTML widget functions. All widgets print to {*standard-output*}.")
   (:use :cl
         :macro-html
 	:named-readtables)

@@ -7,18 +7,47 @@
   "Default document encoding.")
 
 (defun html-widget-meta (&key (content-type "text/html")
-			 (encoding *default-encoding*))
-  "Print meta tag. Takes strings for CONTENT-TYPE and ENCODING."
+			      (encoding *default-encoding*))
+  "*Arguments and Values:*
+
+   _content-type_—a _string_ denoting a MIME type. The default is
+   {\"text/html\"}.
+
+   _encoding_—a _keyword_ denoting a character encoding. The default is
+   {:utf-8}.
+
+   *Description:*
+
+   {html-widget-meta} produces a {meta} element declaring the
+   _content-type_ and _encoding_ of a HTML document."
   (meta :http-equiv "Content-Type"
 	:content (format nil "~a; charset=~a"
 			 content-type (symbol-name encoding))))
 
 (defun html-widget-head (title &key stylesheets scripts feeds
 			 (encoding *default-encoding*))
-  "Print document head. Takes a string as TITLE and a symbol as ENCODING.
-STYLESHEETS have to be a list of plists containing :href and :media
-strings. SCRIPTS has to be a list of url strings. FEEDS has to be a list
-of plists containing :type :title and :href strings."
+  "*Arguments and Values:*
+
+   _title_—a _string_.
+
+   _stylesheets_—a _list_ of _stylesheet designators_. A _stylesheet
+   designator_ is a _property list_ with the keys {:href} and {:media}
+   reflecting the attributes of a {style} element.
+
+   _scripts_—a _list_ of _strings_ designating URIs to Javascript
+   programs.
+
+   _feeds_—a _list_ of _strings_ designating URIs to syndication feeds
+   (e.g. RSS or Atom).
+
+   _encoding_—a _keyword_ denoting a character encoding. The default is
+   {:utf-8}.
+
+   *Description:*
+
+   {html-widget-head} produces a {head} section including elements
+   declaring _title_, _stylesheets_, _scripts_, _feeds_ and an
+   _encoding_."
   (head
    (html-widget-meta :encoding encoding)
    (when title
@@ -38,9 +67,32 @@ of plists containing :type :title and :href strings."
 
 (defun html-widget-document (title body &key stylesheets scripts feeds
 			     (encoding *default-encoding*))
-  "Print html document. Takes TITLE, STYLESHEETS, SCRIPTS, FEEDS and
-ENCODING like html-widget-head. BODY has to be a function that prints
-the documents contents to *standard-output*."
+  "*Arguments and Values:*
+
+   _title_—a _string_.
+
+   _body_—a _function designator_ for a _function_ that prints the
+   document body to {*standard-output*}.
+
+   _stylesheets_—a _list_ of _stylesheet designators_. A _stylesheet
+   designator_ is a _property list_ with the keys {:href} and {:media}
+   reflecting the attributes of a {style} element.
+
+   _scripts_—a _list_ of _strings_ designating URIs to Javascript
+   programs.
+
+   _feeds_—a _list_ of _strings_ designating URIs to syndication feeds
+   (e.g. RSS or Atom).
+
+   _encoding_—a _keyword_ denoting a character encoding. The default is
+   {:utf-8}.
+
+   *Description:*
+
+   {html-widget-document} produces a complete HTML document including a
+   {head} section including elements declaring _title_, _stylesheets_,
+   _scripts_, _feeds_ and an _encoding_. The _body_ _function_ is called
+   to produce the document body."
   (html-doctype)
   (html
    (html-widget-head title
@@ -52,11 +104,32 @@ the documents contents to *standard-output*."
     (funcall body))))
 
 (defun html-widget-list (list &key (type :unordered)
-			 (to-string (lambda (v) v)))
-  "Print list. Takes a LIST of strings, a TYPE selector which can either
-be :unordered (default), :ordered, or :definitions and a function
-TO-STRING which will be applied to the strings and should return a string."
-  (case type
+                                   (to-string 'identity))
+  "*Arguments and Values:*
+
+   _list_—a _list_.
+
+   _type_—one of {:ordered}, {:unordered} and {:definitions}. The default
+   is {:unordered}.
+
+   _to-string_—a _function designator_. The default is {identity}.
+
+   *Description:*
+
+   {html-widget-list} produces an ordered, unordered or definition list
+   containing the items in _list_. _To-string_ is called on list items
+   before they are included in the list.
+
+   If _type_ is {:ordered} or {:unordered} an ordered or unordered list
+   is produced respectively, containing the elements of _list_.
+
+   If _type_ is {:definitions} a definition list is produced. _List_ must
+   be a _list_ of two-element _lists_, the first and second elements
+   being definition title and definition description respectively.
+   {To-string} will be called with two arguments: {:title} or
+   {:description} depending on the value type and the respective value of
+   the two-element _list_."
+  (ecase type
     (:unordered
      (ul
       (dolist (item list)
@@ -70,12 +143,24 @@ TO-STRING which will be applied to the strings and should return a string."
       (loop for (item description) in list
 	 do
 	   (dt (funcall to-string :title item))
-	   (dd (funcall to-string :description description)))))
-    (otherwise
-     (error "List type unimplemented."))))
+	   (dd (funcall to-string :description description)))))))
 
-(defun html-widget-input (name label type)
-  "Print input tag with label. Takes three strings NAME, LABEL and TYPE."
+(defun html-widget-input (name label &optional (type "text"))
+  "*Arguments and Values:*
+
+   _name_, _label_—_strings_.
+
+   _type_—a _string_ denoting an _input type_¹. The default is
+   {\"text\"}.
+
+   *Description:*
+
+   {html-widget-input} produces an {input} element of _type_ with _name_
+   preceded by _label_.
+
+   *See Also:*
+
+   + [Input type](http://www.w3.org/TR/html5/forms.html#attr-input-type)"
   (label label)
   (br)
   (input :name name :type type))
@@ -107,11 +192,31 @@ TO-STRING which will be applied to the strings and should return a string."
     (select-options options t)))
 
 (defun html-widget-select (name label options &key multiple)
-  "Print select tag with options. Takes two strings as NAME and LABEL.
-OPTIONS has to be a list of options and option groups. Options are lists
-in the form (<value-string> <label-string> [:selected]) and option groups
-are lists staring with :group followed by options. If MULTIPLE is not nil
-then multiple selections are allowed."
+  "*Arguments and Values:*
+
+   _name_, _label_—_strings_.
+
+   ↓_options_—a _list_ of options.
+
+   _multiple_—a _generalized boolean_. The default is _false_.
+
+   *Syntax:*
+
+   _options_::= {(}〚↓_option-group_* | ↓_option_*〛{)}
+
+   _option-group_::= {(}{:group} _label_ 〚↓_option_*〛{)}
+
+   _option_::= {(} _value_ _label_ 〚{:selected}〛{)}
+
+   *Description:*
+
+   {html-widget-select} produces a {select} element _name_ preceded by
+   _label_ containing {option} elements as declared in _options_.
+   _Option-groups_ can be used to produce {optgroup} elements
+   accordingly. If an _option_ declaration contains {:selected} as its
+   third element, the resulting {option} element will be selected by
+   default. If _multiple is true, the {select} element will allow for
+   multiple selections."
   (label label)
   (br)
   (if multiple
@@ -121,17 +226,40 @@ then multiple selections are allowed."
 	      (html-select-options options))))
 
 (defun html-widget-textarea (name label initial-text)
-  "Print textarea tag. Takes three strings NAME, LABEL, and
-INITIAL-TEXT."
+  "*Arguments and Values:*
+
+   _name_, _label_, _initial-text_—_strings_.
+
+   *Description:*
+
+   {html-widget-text-area} produces a {textarea} element with _name_ and
+   _initial-text_ preceded by _label_."
   (label label)
   (br)
   (textarea [:name name] initial-text))
 
 (defun html-widget-form (action fields  &key (method "GET")
-			 (description "Submit"))
-  "Print form. Takes three strings ACTION, METHOD (defaults to \"GET\")
-and DESCRIPTION (defaults to \"Submit\"). The function FIELDS should
-print the form fields to *standard-output*."
+                                             (description "Submit"))
+  "*Arguments and Values:*
+
+   _action_—a _string_ denoting a _form action_¹.
+
+   _fields_—a _function designator_ for a _function_ that prints the
+   form's inputs to {*standard-output*}.
+
+   _method_—one of {\"GET\"} or {\"POST\"}. The default is {\"GET\"}.
+
+   _description_—a _string_. The default is {\"Submit\"}.
+
+   *Description:*
+
+   {html-widget-form} produces a {form} element with _fields_. The
+   resulting form will be bound to _action_ and use _method_. It will
+   also contain a submit button labeled with _description_.
+
+   *See Also:*
+
+   + 1. [Form action](http://www.w3.org/TR/html5/forms.html#attr-fs-action)"
   (form [:action action :method method]
 	(p
 	 (funcall fields)
@@ -140,8 +268,16 @@ print the form fields to *standard-output*."
 	 (input :type "reset"))))
 
 (defun html-widget-table (head body)
-  "Print table. Takes a row HEAD and a list of rows BODY. A row has to be
-a list of strings."
+  "*Arguments and Values:*
+
+   _head_—a _list_.
+
+   _body_—a _list_ of _lists.
+
+   *Description:*
+
+   {html-widget-table} produces a {table} element with _head_ as its
+   table head _body_ as its rows."
   (table
    (thead
     (tr (loop for column in head do
