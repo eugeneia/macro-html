@@ -8,7 +8,7 @@ code printing the respective HTML source. Also employs a DSL for
 element attributes."
   :author "Max Rottenkolber <max@mr.gy>"
   :license "GNU AGPL"
-  :version "1.1"
+  :version "1.2"
   :components ((:file "packages")
 	       (:file "macro-html" :depends-on ("packages"))
 	       (:file "syntax" :depends-on ("packages"

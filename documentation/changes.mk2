@@ -1,7 +1,14 @@
+< 1.2
+
+ + Added {MACRO-HTML:TEXT}
+
+>
+
+
 < 1.1
 
- + Renamed project to MACRO-HTML
- + Fixed TO-STRING for CCL
- + OPTION is no longer a single element
+ + Renamed project to "macro-html"
+ + Fixed {to-string} for CCL
+ + {option} is no longer a single element macro
 
 >
