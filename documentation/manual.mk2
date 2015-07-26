@@ -34,7 +34,6 @@
  to produce compound HTML output.
 
  #code Example usage of {macro-html}.#
-
  (p [:class "foo" :id "bar"]
     "Hello, " (b "World") "!"
     (br :class "baz")
