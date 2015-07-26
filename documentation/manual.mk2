@@ -7,7 +7,8 @@
 
  {macro-html.widgets} is a collection of widget functions. Those
  functions utilize {macro-html} to print compound HTML elements such as
- lists, forms or even complete documents.
+ lists, forms or even complete documents. The provided widgets are
+ documented in [macro-html Widgets](widgets.html).
 
  + 1. [HTML5](http://www.w3.org/TR/html5/)
 

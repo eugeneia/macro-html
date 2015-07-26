@@ -192,9 +192,9 @@
     (select-options options t)))
 
 (defun html-widget-select (name label options &key multiple)
-  "_options_::= {'(}〚↓_option-group_* | ↓_option_*〛{)}
+  "_options_::= {'(}〚↓_option-group_\\* | ↓_option_\\*〛{)}
 
-   _option-group_::= {(}{:group} _label_ 〚↓_option_*〛{)}
+   _option-group_::= {(}{:group} _label_ 〚↓_option_\\*〛{)}
 
    _option_::= {(}_value_ _label_ 〚{:selected}〛{)}
 
