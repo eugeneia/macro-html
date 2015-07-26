@@ -211,7 +211,7 @@
    _Option-groups_ can be used to produce {optgroup} elements
    accordingly. If an _option_ declaration contains {:selected} as its
    third element, the resulting {option} element will be selected by
-   default. If _multiple is true, the {select} element will allow for
+   default. If _multiple_ is true, the {select} element will allow for
    multiple selections."
   (label label)
   (br)
@@ -268,7 +268,7 @@
 
    _head_—a _list_.
 
-   _body_—a _list_ of _lists.
+   _body_—a _list_ of _lists_.
 
    *Description:*
 
