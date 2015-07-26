@@ -192,21 +192,17 @@
     (select-options options t)))
 
 (defun html-widget-select (name label options &key multiple)
-  "*Arguments and Values:*
-
-   _name_, _label_—_strings_.
-
-   ↓_options_—a _list_ of options.
-
-   _multiple_—a _generalized boolean_. The default is _false_.
-
-   *Syntax:*
-
-   _options_::= {(}〚↓_option-group_* | ↓_option_*〛{)}
+  "_options_::= {'(}〚↓_option-group_* | ↓_option_*〛{)}
 
    _option-group_::= {(}{:group} _label_ 〚↓_option_*〛{)}
 
-   _option_::= {(} _value_ _label_ 〚{:selected}〛{)}
+   _option_::= {(}_value_ _label_ 〚{:selected}〛{)}
+
+   *Arguments and Values:*
+
+   _name_, _label_, _value_—_strings_.
+
+   _multiple_—a _generalized boolean_. The default is _false_.
 
    *Description:*
 
