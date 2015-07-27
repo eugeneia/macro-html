@@ -6,6 +6,9 @@
 (defparameter *default-encoding* :utf-8
   "Default document encoding.")
 
+(defparameter *default-viewport* "width=device-width, initial-scale=1"
+  "Default document viewport.")
+
 (defun html-widget-meta (&key (content-type "text/html")
 			      (encoding *default-encoding*))
   "*Arguments and Values:*
@@ -25,7 +28,8 @@
 			 content-type (symbol-name encoding))))
 
 (defun html-widget-head (title &key stylesheets scripts feeds
-			 (encoding *default-encoding*))
+                         (encoding *default-encoding*)
+                         (viewport *default-viewport*))
   "*Arguments and Values:*
 
    _title_—a _string_.
@@ -44,6 +48,9 @@
    _encoding_—a _keyword_ denoting a character encoding. The default is
    {:utf-8}.
 
+   _viewport_—a _string_ denoting the value of a {viewport} meta
+   attribute. the default is {\"width=device-width, initial-scale=1\"}.
+
    *Description:*
 
    {html-widget-head} produces a {head} section including elements
@@ -51,6 +58,11 @@
    _viewport_."
   (head
    (html-widget-meta :encoding encoding)
+   (when viewport
+     ;; The sad state of the web requires us to add this atrocious and
+     ;; non-standard meta attribute because mobile browsers will render
+     ;; HTML pages unresponsively otherwise.
+     (meta :name "viewport" :content viewport))
    (when title
      (title title))
    (dolist (stylesheet stylesheets)
@@ -67,7 +79,8 @@
 	   :href (getf feed :href)))))
 
 (defun html-widget-document (title body &key stylesheets scripts feeds
-			     (encoding *default-encoding*))
+			     (encoding *default-encoding*)
+                             (viewport *default-viewport*))
   "*Arguments and Values:*
 
    _title_—a _string_.
@@ -88,6 +101,9 @@
 
    _encoding_—a _keyword_ denoting a character encoding. The default is
    {:utf-8}.
+
+   _viewport_—a _string_ denoting the value of a {viewport} meta
+   attribute. the default is {\"width=device-width, initial-scale=1\"}.
 
    *Description:*
 
