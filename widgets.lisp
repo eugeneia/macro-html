@@ -32,13 +32,14 @@
 
    _stylesheets_—a _list_ of _stylesheet designators_. A _stylesheet
    designator_ is a _property list_ with the keys {:href} and {:media}
-   reflecting the attributes of a {style} element.
+   reflecting they keys of a {stylesheet} link.
 
    _scripts_—a _list_ of _strings_ designating URIs to Javascript
    programs.
 
-   _feeds_—a _list_ of _strings_ designating URIs to syndication feeds
-   (e.g. RSS or Atom).
+   _feeds_—a _list_ of _feed designators_. A _feed designator_ is a
+   _property list_ with the keys {:href}, {:type} and {:title} refecting
+   the keys of an {alternate} link.
 
    _encoding_—a _keyword_ denoting a character encoding. The default is
    {:utf-8}.
@@ -46,8 +47,8 @@
    *Description:*
 
    {html-widget-head} produces a {head} section including elements
-   declaring _title_, _stylesheets_, _scripts_, _feeds_ and an
-   _encoding_."
+   declaring _title_, _stylesheets_, _scripts_, _feeds_, _encoding_ and
+   _viewport_."
   (head
    (html-widget-meta :encoding encoding)
    (when title
@@ -76,13 +77,14 @@
 
    _stylesheets_—a _list_ of _stylesheet designators_. A _stylesheet
    designator_ is a _property list_ with the keys {:href} and {:media}
-   reflecting the attributes of a {style} element.
+   reflecting they keys of a {stylesheet} link.
 
    _scripts_—a _list_ of _strings_ designating URIs to Javascript
    programs.
 
-   _feeds_—a _list_ of _strings_ designating URIs to syndication feeds
-   (e.g. RSS or Atom).
+   _feeds_—a _list_ of _feed designators_. A _feed designator_ is a
+   _property list_ with the keys {:href}, {:type} and {:title} refecting
+   the keys of an {alternate} link.
 
    _encoding_—a _keyword_ denoting a character encoding. The default is
    {:utf-8}.
@@ -91,8 +93,8 @@
 
    {html-widget-document} produces a complete HTML document including a
    {head} section including elements declaring _title_, _stylesheets_,
-   _scripts_, _feeds_ and an _encoding_. The _body_ _function_ is called
-   to produce the document body."
+   _scripts_, _feeds_, _encoding_ and _viewport_. The _body_ _function_
+   is called to produce the document body."
   (html-doctype)
   (html
    (html-widget-head title
